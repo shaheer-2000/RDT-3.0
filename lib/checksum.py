@@ -33,7 +33,6 @@ def generate_chksum(pkt: bytes, pkt_size: int=1):
 	"""
 	Take 1s complement
 	https://stackoverflow.com/questions/31151107/how-do-i-do-a-bitwise-not-operation-in-python
-	prepends
 	"""
 	complement = (1 << pkt_bits) - 1 - _sum
 
