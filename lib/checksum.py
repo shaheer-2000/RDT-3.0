@@ -37,7 +37,7 @@ def generate_chksum(pkt: bytes, pkt_size: int=1):
 	complement = (1 << pkt_bits) - 1 - _sum
 
 	# left-pad bits if leading 0s missing, to get to pkt_size
-	return ("".zfill(pkt_bits - complement.bit_length()) + bin(complement)[2:]).encode()
+	return left_pad(complement, pkt_bits)
 
 """
 Break packet into smaller chunks of pkt_size,
@@ -69,7 +69,11 @@ def verify_chksum(pkt: bytes, pkt_size: int=8):
 	return (_sum & pkt_mask) == pkt_mask
 
 if __name__ == "__main__":
+	from utility import left_pad
 	# b"1001 1001 1110 0010 0010 0100 1000 0100"
 	print(generate_chksum(b"10011001111000100010010010000100", 1))
 	# b"1001 1001 1110 0010 0010 0100 1000 0100" + b"1101 1010"
 	print(verify_chksum(b"1001100111100010001001001000010011011010", 1))
+else:
+	from lib.utility import left_pad
+
