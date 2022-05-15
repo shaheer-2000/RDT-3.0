@@ -26,7 +26,6 @@ def make_sndpkt(seq_num: int, chksum: int, data: bytes):
 	# append msg
 	sndpkt_fmt = SNDPKT_FMT[:-1] + f"{len(data)}" + SNDPKT_FMT[-1:]
 
-	print(sndpkt_fmt)
 	return struct.pack(sndpkt_fmt, seq_num, chksum, data)
 
 def make_rcvpkt(seq_num: int, ack: int, chksum: int, data: bytes):

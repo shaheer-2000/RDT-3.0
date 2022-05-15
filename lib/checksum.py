@@ -44,7 +44,7 @@ Break packet into smaller chunks of pkt_size,
 then sum these chunks and wrap the overflow bits (add them),
 verify that the sum is all 1s or 0xFFFF...
 """
-def verify_chksum(pkt: bytes, pkt_size: int=8):
+def verify_chksum(pkt: bytes, pkt_size: int=1):
 	sum = 0
 	pkt_int = int(pkt, 2)
 	# 2 ** 8 (256) is 9 bits long, subtract 1 to get all 1s and reduce to pkt_size - 1 bits
