@@ -9,7 +9,7 @@ until the pkt is of pkt_size, then take 1's complement
 
 pkt_size should be in bytes
 """
-def generate_chksum(pkt: bytes, pkt_size: int=1):
+def generate_chksum(pkt: bytes, pkt_size: int=1) -> int:
 	sum = 0
 	pkt_int = int(pkt, 2)
 	# 2 ** 8 (256) is 9 bits long, subtract 1 to get all 1s and reduce to pkt_size - 1 bits
@@ -37,7 +37,7 @@ def generate_chksum(pkt: bytes, pkt_size: int=1):
 	complement = (1 << pkt_bits) - 1 - _sum
 
 	# left-pad bits if leading 0s missing, to get to pkt_size
-	return left_pad(complement, pkt_bits)
+	return int(left_pad(complement, pkt_bits), 2)
 
 """
 Break packet into smaller chunks of pkt_size,
