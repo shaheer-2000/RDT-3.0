@@ -25,7 +25,8 @@ class Timeout:
 
 	def start_timeout(self, seconds: int):
 		if self.current_timeout is not None:
-			raise AttributeError("a timeout is already running, stop the current timeout first")
+			self.stop_timeout()
+			# raise AttributeError("a timeout is already running, stop the current timeout first")
 		
 		self.interrupted = False
 		self.expired = False
@@ -36,7 +37,11 @@ class Timeout:
 
 	def stop_timeout(self):
 		if self.current_timeout is None:
-			raise AttributeError("no timeout is running")
+			self.interrupt = False
+			self.current_timeout = None
+			self.interrupted = False
+			self.expired = False
+			return
 		
 		self.interrupt = True
 		self.current_timeout.join()

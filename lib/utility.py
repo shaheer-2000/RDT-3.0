@@ -23,3 +23,27 @@ def corrupt_pkt(pkt: bytes) -> bytes:
 if __name__ == "__main__":
 	print(corrupt_pkt(b"00100000"))
 
+"""
+Displays the difference between original and corrupted packet
+"""
+def show_pkt_diff(pkt: bytes, corrupted_pkt: bytes):
+	# print("Original PKT:", pkt)
+	# print("Corruptd PKT:", corrupted_pkt)
+	# print("              ", end="")
+	_window_start = 0
+	window_width = 32
+	_window_end = _window_start + window_width
+
+	while _window_start < len(pkt):
+		print(pkt[_window_start:_window_end])
+		print(corrupted_pkt[_window_start:_window_end])
+		print("  ", end="")
+		for b, c in zip(pkt[_window_start:_window_end], corrupted_pkt[_window_start:_window_end]):
+			if b != c:
+				print("^", end="")
+			else:
+				print(" ", end="")
+		print("")
+		_window_start += window_width
+		_window_end += window_width
+
